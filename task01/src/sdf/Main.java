@@ -5,15 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.security.KeyStore.Entry;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Main {
 
@@ -54,6 +51,9 @@ public class Main {
                 
             }
         }
+
+        br.close();
+        fr.close();
 
         // create a hashmap
         Map<String, Integer> wordCount = new HashMap<>();
