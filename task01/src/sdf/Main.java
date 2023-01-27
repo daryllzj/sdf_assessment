@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -25,14 +26,17 @@ public class Main {
         // checks if file exist
         File textFile = new File(dirPath + File.separator + textName);
         if (textFile.exists()) {
-            System.out.println("file exists \n");   
+            System.out.println("file exists");   
         } else {
             System.out.println("file does not exist");
         }
 
+        // create a new array to store words without punctuations
         List<String> textWithoutPunctuations = new ArrayList<>();
 
-        // read the file
+        try {
+
+            // read the file
         FileReader fr = new FileReader(textFile);
         BufferedReader br = new BufferedReader(fr);
         String line;
@@ -40,12 +44,12 @@ public class Main {
         // continues to read each line of text until null
         while (((line = br.readLine())!= null)) {
             // removes punctuation with regex
-            String clean = line.replaceAll("\\p{P}", "");
+            String clean = line.strip().replaceAll("\\p{P}", "");
             // splits each work via the space
-            String[] cleanWords = clean.toLowerCase().split(" ");
+            String[] cleanWords = clean.trim().toLowerCase().split(" ");
             // adds each word into the list
             for (String string : cleanWords) {
-                if (!string.trim().equals(" ")) {
+                if (!string.equals(" ")) {
                     textWithoutPunctuations.add(string.trim());
                 }
                 
@@ -61,17 +65,19 @@ public class Main {
         // loop through each string to see if there is a key-value pair
         for (String string : textWithoutPunctuations) {
             Integer count = wordCount.get(string);
+            // if there is no value to the key, add 1 to value
             if (count == null) {
                 wordCount.put(string, 1);
             } else {
+                // if there is a value for key, increment by 1
                 wordCount.put(string, wordCount.get(string)+1);
             }
         }
 
-        // put hashmap into an array
+        // put hashmap into an array list
        List <Map.Entry<String, Integer>> list = new ArrayList<>(wordCount.entrySet());
 
-        // sort hashmap
+        // sort hashmap based on value
        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
 
         @Override
@@ -82,11 +88,24 @@ public class Main {
        });
 
        // print out results
-       System.out.println("--- Word Ranking <Highest to Lowest> ---");
+       System.out.println("\n--- Top 10 Words Ranking <Highest to Lowest> ---");
 
-        for (Map.Entry<String,Integer> entry : list) {
-            System.out.println("Word : " + entry.getKey() + " ; " + "Term Frequency : " + entry.getValue().floatValue()/list.size());
+       // copy top 10 key value pairs to a new list
+        List<Map.Entry<String,Integer>> top10 = list.stream().limit(10).collect(Collectors.toList());
+
+        // for each pair in list, print out result
+        for (Map.Entry<String,Integer> entry : top10) {
+            System.out.println("Word: " + entry.getKey() + "; Count: " + entry.getValue()+ "; Term Frequency: " + String.format("%.4f", entry.getValue().floatValue()/textWithoutPunctuations.size()) );
         }
+        System.out.println("--- Thank you Chuk. Please pass me ---\n");
+            
+        } catch (Exception e) {
+            System.out.println("please put file in directory 'text'");
+        }
+
+        
+
+        
 
 
 
