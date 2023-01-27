@@ -97,10 +97,10 @@ public class Main {
         for (Map.Entry<String,Integer> entry : top10) {
             System.out.println("Word: " + entry.getKey() + "; Count: " + entry.getValue()+ "; Term Frequency: " + String.format("%.4f", entry.getValue().floatValue()/textWithoutPunctuations.size()) );
         }
-        System.out.println("--- Thank you Chuk. Please pass me ---\n");
+        System.out.println("--- Thank you. Please pass me ---\n");
             
         } catch (Exception e) {
-            System.out.println("please put file in directory 'text'");
+            System.out.println("please put text file in directory 'text'");
         }
 
         

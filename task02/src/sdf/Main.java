@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Welcome.");
+        System.out.println("--- Welcome. ---");
         
         Console cons = System.console();
 
@@ -19,7 +19,7 @@ public class Main {
         while (!exit) {
 
             try {
-
+            // reads the input after the prompt
             String calculations = cons.readLine("> ");
 
             // if input is exit, break out of while loop
@@ -37,7 +37,7 @@ public class Main {
 
             // checks if input is $last or a number
             if (cal[0].equals("$last")) {
-                // if it is $last, get the last value
+                // if it is $last, get last value
                 firstValue = calculator.getLast();
             } else {
                 firstValue = Float.parseFloat(cal[0]);
@@ -53,8 +53,8 @@ public class Main {
             Float result = calculator.calculate(firstValue, cal[1], secondValue);
 
             // prints out result
-            System.out.println(result);
-
+            System.out.println(String.format("%.3f", result));
+            
             // sets result as new value of last
             calculator.setLast(result);
 
@@ -65,6 +65,7 @@ public class Main {
         }
 
         System.out.println("Bye Bye");
+        System.out.println("--- Thank you. Please pass me ---\n");
 
     }
     
