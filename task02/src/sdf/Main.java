@@ -53,7 +53,7 @@ public class Main {
             Float result = calculator.calculate(firstValue, cal[1], secondValue);
 
             // prints out result
-            System.out.println(String.format("%.3f", result));
+            System.out.println(String.format("%.2f", result));
             
             // sets result as new value of last
             calculator.setLast(result);
